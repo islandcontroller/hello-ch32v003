@@ -20,7 +20,7 @@ This project contains a simple set of modules to get the MCU running in a minima
 
 ### Manual OpenOCD Update
 
-The current release (V1.30) or MounRiver Studio Community does not include the updated OpenOCD build required for WCH-LinkE support. In order to update the debugger, perform the following steps:
+The current release (V1.30) of MounRiver Studio Community does not include the updated OpenOCD build required for WCH-LinkE support. In order to update the debugger, perform the following steps:
 
 * Download the [MounRiver Studio V1.84 Update](http://file.mounriver.com/upgrade/MounRiver_Update_V184.zip) package
 * Extract the package into a temporary folder
