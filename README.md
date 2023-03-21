@@ -13,7 +13,7 @@ This project contains a simple set of modules to get the MCU running in a minima
 * Hardware
   * WCH CH32V003F4P6-EVT+WCH-LinkE Starter Kit (available from LCSC, [PartNr `C5236707`](https://www.lcsc.com/product-detail/Microcontroller-Units-MCUs-MPUs-SOCs_WCH-Jiangsu-Qin-Heng-CH32V003F4P6-EVT-WCH-LinkE_C5236707.html))
     * Starter Kit includes WCH-LinkE Debugger
-  * (optional) Female-female jumper wires
+  * 6 pcs. female-female jumper wires
 * Software
   * [MounRiver Studio Community](http://www.mounriver.com/) (as of March 2023, a [manual OpenOCD update](#manual-openocd-update) is needed)
   * Serial terminal program, e.g. [PuTTy](https://www.putty.org/) or minicom
@@ -26,6 +26,21 @@ The current release (V1.30) or MounRiver Studio Community does not include the u
 * Extract the package into a temporary folder
 * Copy the contained `toolchain` folder to your **local** MounRiver Studio Community installation
 * Confirm overwrite of all files in the `toolchain` folder
+
+### Hardware Setup
+
+Follow instructions from the [WCH-LinkE User Manual](http://www.wch-ic.com/downloads/WCH-LinkUserManual_PDF.html) for connecting the debugger to your EVT board.
+
+| WCH-LinkE Pin | EVT Board Pin |
+|---------------|---------------|
+| `RST`         | `NRST / PD7`  |
+| `3V3`         | `VCC` (*)     |
+| `GND`         | `GND`         |
+| `SWDIO/TMS`   | `PD1`         |
+| `TX`          | `PD6`         |
+| `RX`          | `PD5`         |
+
+*) For powering the target from your WCH-LinkE debugger. Omit this if you want to power the EVT board via its own USB port.
 
 ## Usage
 
