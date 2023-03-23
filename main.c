@@ -22,6 +22,7 @@
  * @date  10.03.2022  Added information block readout; Disabled EEPROM demo for
  *                    default configuration
  * @date  21.03.2023  Adapted from hello-ch32v103 for hello-ch32v003
+ * @date  23.03.2023  Added SysTick interrupt demo
  ******************************************************************************/
 
 /*- Header files -------------------------------------------------------------*/
@@ -37,6 +38,11 @@
 /*- Macros -------------------------------------------------------------------*/
 /*! @brief Hexdump items per row                                              */
 #define HEXDUMP_ROW_ITEMS             16UL
+
+
+/*- Global variables ---------------------------------------------------------*/
+/*! System timer counter (1ms per tick)                                       */
+volatile uint32_t ulSystemTime = 0U;
 
 
 /*- Private variables --------------------------------------------------------*/
@@ -225,6 +231,7 @@ static void vPrintInfoBlockWords(void)
  * @date  04.03.2022  Added EEPROM readout demo
  * @date  10.03.2022  Added information block readout command
  * @date  21.03.2023  Removed analog, EEPROM for ch32v003
+ * @date  23.03.2023  Added system timer value readout
  ******************************************************************************/
 static void vPollSerial(void)
 {
@@ -245,6 +252,7 @@ static void vPollSerial(void)
         "  ?    Show this help\r\n"
         "  i    Read information block\r\n"
         "  r    Reboot system\r\n"
+        "  t    Print system time\r\n"
       );
       break;
 
@@ -256,6 +264,11 @@ static void vPollSerial(void)
     case 'r':
       /* Reboot command                                   */
       PFIC_SystemReset();
+      break;
+
+    case 't':
+      /* Print system time                                */
+      printf("System time: %lu ms\r\n", ulSystemTime);
       break;
 
     default:
