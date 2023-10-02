@@ -8,6 +8,8 @@ This project contains a simple set of modules to get the MCU running in a minima
   - Serial I/O on USART1 (connected to WCH-LinkE USART)
   - SysTick enabled and using auto-reload feature
 
+**:information_source: See [`README.vscode.md`](README.vscode.md) for VSCode setup information! :information_source:**
+
 ## Requirements
 
 * Hardware
@@ -18,9 +20,9 @@ This project contains a simple set of modules to get the MCU running in a minima
   * [MounRiver Studio Community](http://www.mounriver.com/) (as of March 2023, a [manual OpenOCD update](#manual-openocd-update) is needed)
   * Serial terminal program, e.g. [PuTTy](https://www.putty.org/) or minicom
 
-### Manual OpenOCD Update
+### Manual OpenOCD Update for MounRiver V1.30 or earlier
 
-The current release (V1.30) of MounRiver Studio Community does not include the updated OpenOCD build required for WCH-LinkE support. In order to update the debugger, perform the following steps:
+MounRiver Studio Community **V1.30** does not include the updated OpenOCD build required for WCH-LinkE support. In order to update the debugger, perform the following steps:
 
 * Download the [MounRiver Studio V1.84 Update](http://file.mounriver.com/upgrade/MounRiver_Update_V184.zip) package
 * Extract the package into a temporary folder
