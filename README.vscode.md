@@ -6,6 +6,7 @@ A simple "Hello World"-like project for the ultra low-cost WCH CH32V003 RISC-V M
 
 This project contains a simple set of modules to get the MCU running in a minimal configuration:
   - Serial I/O on USART1 (connected to WCH-LinkE USART)
+  - TIM1 Channel 3 configured for PWM output to LED
   - SysTick enabled and using auto-reload feature
 
 ## Requirements
@@ -14,6 +15,7 @@ This project contains a simple set of modules to get the MCU running in a minima
   * WCH CH32V003F4P6-EVT+WCH-LinkE Starter Kit (available from LCSC, [PartNr `C5236707`](https://www.lcsc.com/product-detail/Microcontroller-Units-MCUs-MPUs-SOCs_WCH-Jiangsu-Qin-Heng-CH32V003F4P6-EVT-WCH-LinkE_C5236707.html))
     * Starter Kit includes WCH-LinkE Debugger
   * 6 pcs. female-female jumper wires
+  * (optional) additional 1 pc. female-female jumper wire for LED demo
 * Software
   * Linux OS or WSL installation
   * [Docker Engine](https://docs.docker.com/engine/install/debian/) (running within WSL if applicable)
@@ -22,7 +24,8 @@ This project contains a simple set of modules to get the MCU running in a minima
 
 ### Hardware Setup
 
-Follow instructions from the [WCH-LinkE User Manual](http://www.wch-ic.com/downloads/WCH-LinkUserManual_PDF.html) for connecting the debugger to your EVT board.
+* (optional) Connect the `LED1` and `PC3` pins on header `P2` using a female-female jumper wire
+* Follow instructions from the [WCH-LinkE User Manual](http://www.wch-ic.com/downloads/WCH-LinkUserManual_PDF.html) for connecting the debugger to your EVT board.
 
 | WCH-LinkE Pin | EVT Board Pin |
 |---------------|---------------|
