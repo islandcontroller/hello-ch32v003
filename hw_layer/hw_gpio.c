@@ -37,4 +37,12 @@ void vInitHW_GPIO(void)
   };
   GPIO_Init(USART1RTX_GPIO_Port, &sInitUSART1TX);
   GPIO_Init(USART1RTX_GPIO_Port, &sInitUSART1RX);
+
+  /* TIM1 Channel 3                                       */
+  GPIO_InitTypeDef sInitTIM1CH3 = {
+    .GPIO_Pin = TIM1CH3_GPIO_Pin,
+    .GPIO_Mode = TIM1CH3_GPIO_Mode,
+    .GPIO_Speed = GPIO_Speed_2MHz
+  };
+  GPIO_Init(TIM1CH3_GPIO_Port, &sInitTIM1CH3);
 }

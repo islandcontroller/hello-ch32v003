@@ -23,6 +23,7 @@
  *                    default configuration
  * @date  21.03.2023  Adapted from hello-ch32v103 for hello-ch32v003
  * @date  23.03.2023  Added SysTick interrupt demo
+ * @date  02.10.2023  Moved system time to hw_stk
  ******************************************************************************/
 
 /*- Header files -------------------------------------------------------------*/
@@ -31,6 +32,7 @@
 #include <ctype.h>
 #include "ch32v00x.h"
 #include "hw_init.h"
+#include "hw_stk.h"
 #include "syscalls.h"
 #include "dbgser.h"
 
@@ -38,11 +40,6 @@
 /*- Macros -------------------------------------------------------------------*/
 /*! @brief Hexdump items per row                                              */
 #define HEXDUMP_ROW_ITEMS             16UL
-
-
-/*- Global variables ---------------------------------------------------------*/
-/*! System timer counter (1ms per tick)                                       */
-volatile uint32_t ulSystemTime = 0U;
 
 
 /*- Private variables --------------------------------------------------------*/
@@ -268,7 +265,7 @@ static void vPollSerial(void)
 
     case 't':
       /* Print system time                                */
-      printf("System time: %lu ms\r\n", ulSystemTime);
+      printf("System time: %lu ms\r\n", ulHW_STKGetSystemTime());
       break;
 
     default:

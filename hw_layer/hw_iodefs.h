@@ -6,6 +6,7 @@
  * I/O Pinout definitions
  *
  * @date  21.03.2023
+ * @date  02.10.2023  Added Timer 1 Channel 3 mapping
  ******************************************************************************/
 
 #ifndef HW_IODEFS_H_
@@ -17,7 +18,16 @@
 
 /*- Macros -------------------------------------------------------------------*/
 /*! @brief Used GPIO peripherals bitmask                                      */
-#define GPIO_USED_PERIPH              RCC_APB2Periph_GPIOD
+#define GPIO_USED_PERIPH              ( RCC_APB2Periph_GPIOC | \
+                                        RCC_APB2Periph_GPIOD | 0UL )
+
+
+/*! @brief PC3: Timer 1 Channel 3 PWM Output to LED
+ *  @{                                                                        */
+#define TIM1CH3_GPIO_Port             GPIOC
+#define TIM1CH3_GPIO_Pin              GPIO_Pin_3
+#define TIM1CH3_GPIO_Mode             GPIO_Mode_AF_PP
+/*! @}                                                                        */
 
 /*! @brief PA9/10: USART1 RX/TX to debugger serial port
  *  @{                                                                        */

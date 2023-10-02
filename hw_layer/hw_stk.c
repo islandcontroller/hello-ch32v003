@@ -7,6 +7,7 @@
  *
  * @date  21.03.2023
  * @date  23.03.2023  Added compare value macro (1ms period)
+ * @date  02.10.2023  Added system time getter
  ******************************************************************************/
 
 /*- Header files -------------------------------------------------------------*/
@@ -16,6 +17,11 @@
 /*- Macros -------------------------------------------------------------------*/
 /*! @brief SysTick compare value for 1ms period                               */
 #define SYSTICK_CMP_VALUE             (HSI_VALUE / 8U / 1000U)
+
+
+/*- Global variables ---------------------------------------------------------*/
+/*! System time in ms (interrupt access)                                      */
+volatile uint32_t ulHW_STKSystemTime = 0U;
 
 
 /*!****************************************************************************
@@ -40,5 +46,16 @@ void vInitHW_STK(void)
   PFIC_EnableIRQ(SysTicK_IRQn);
 
   SysTick_Cmd(ENABLE);
+}
 
+/*!****************************************************************************
+ * @brief
+ * Return current system time
+ * 
+ * @return  (uint32_t)  System time in ms
+ * @date  02.10.2023
+ ******************************************************************************/
+uint32_t ulHW_STKGetSystemTime(void)
+{
+  return ulHW_STKSystemTime;
 }
