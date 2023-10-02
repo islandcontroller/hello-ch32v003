@@ -54,11 +54,12 @@
  *  https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/setvbuf
  *
  * @date  03.03.2022
+ * @date  02.10.2023  No buffering used
  ******************************************************************************/
 void vInitSyscalls(void)
 {
   /* Enable line buffering                                */
-  setvbuf(stdout, NULL, _IOLBF, 0);
+  setvbuf(stdout, NULL, _IONBF, 0);
 }
 
 
