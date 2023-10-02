@@ -1,0 +1,36 @@
+{
+  "configurations": [
+    {
+      "type": "cppdbg",
+      
+      "name": "Debug (WCH-Link)",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/build/hello-ch32v003.elf",
+
+      /* Debugger connection */
+      "MIMode": "gdb",
+      "miDebuggerPath": "/opt/gcc-riscv-none-embed/bin/riscv-none-embed-gdb",
+      "miDebuggerServerAddress": "localhost:3333",
+
+      /* Debugger and target setup */
+      "stopAtEntry": false,
+      "setupCommands": [
+        { "text": "-enable-pretty-printing" },
+        { "text": "set mem inaccessible-by-default off" },
+        { "text": "set architecture riscv:rv32" },
+        { "text": "set remotetimeout unlimited" },
+      ],
+      "postRemoteConnectCommands": [
+        { "text": "monitor reset halt" },
+        { "text": "load" },
+        { "text": "b main" },
+        { "text": "b HardFault_Handler" },
+      ],
+      "launchCompleteCommand": "exec-continue",
+
+      /* Peripheral viewer */
+      "svdPath": "/opt/wch/CH32V003xx.svd"
+    }
+  ]
+}

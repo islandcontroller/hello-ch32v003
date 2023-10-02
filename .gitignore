@@ -1,3 +1,10 @@
+# Eclipse / MounRiver Studio
 /.settings/
 /Debug/
 .template
+
+# VSCode
+.vscode/settings.json
+
+# CMake
+build/

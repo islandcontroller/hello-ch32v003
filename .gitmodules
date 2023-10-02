@@ -1,3 +1,6 @@
 [submodule "Controller/CH32V003"]
 	path = Controller/CH32V003
 	url = https://github.com/islandcontroller/mculib-controller-ch32v003
+[submodule ".devcontainer"]
+	path = .devcontainer
+	url = https://github.com/islandcontroller/wch-riscv-devcontainer
