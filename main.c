@@ -24,6 +24,7 @@
  * @date  21.03.2023  Adapted from hello-ch32v103 for hello-ch32v003
  * @date  23.03.2023  Added SysTick interrupt demo
  * @date  02.10.2023  Moved system time to hw_stk
+ * @date  02.10.2023  Added LED demo
  ******************************************************************************/
 
 /*- Header files -------------------------------------------------------------*/
@@ -35,6 +36,7 @@
 #include "hw_stk.h"
 #include "syscalls.h"
 #include "dbgser.h"
+#include "led.h"
 
 
 /*- Macros -------------------------------------------------------------------*/
@@ -291,6 +293,7 @@ static void vPollSerial(void)
  * @date  03.03.2022  Moved escape sequence into dbgser macro
  * @date  04.03.2022  Added EEPROM programming
  * @date  21.03.2023  Adapted for hello-ch32v003; Removed LED, Analog, EEPROM
+ * @date  02.10.2023  Added LED demo
  ******************************************************************************/
 int main(void)
 {
@@ -298,6 +301,9 @@ int main(void)
 
   /* Init syscalls retargeting                            */
   vInitSyscalls();
+
+  /* Init demos                                           */
+  vInitLed();
 
   /* Print system info                                    */
   printf(
@@ -327,5 +333,6 @@ int main(void)
   while (1)
   {
     vPollSerial();
+    vPollLed();
   }
 }
