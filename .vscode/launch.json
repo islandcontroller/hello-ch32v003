@@ -8,6 +8,13 @@
       "cwd": "${workspaceFolder}",
       "program": "${workspaceFolder}/build/hello-ch32v003.elf",
 
+      /* OpenOCD debugger */
+      "debugServerPath": "openocd",
+      "debugServerArgs": "-f /opt/openocd/bin/wch-riscv.cfg",
+      "filterStderr": true,
+      "serverStarted": "Info : Listening on port 3333 for gdb connections",
+
+
       /* Debugger connection */
       "MIMode": "gdb",
       "miDebuggerPath": "/opt/gcc-riscv-none-embed/bin/riscv-none-embed-gdb",
