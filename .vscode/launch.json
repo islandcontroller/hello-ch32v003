@@ -14,11 +14,11 @@
       "filterStderr": true,
       "serverStarted": "Info : Listening on port 3333 for gdb connections",
 
-
       /* Debugger connection */
       "MIMode": "gdb",
       "miDebuggerPath": "/opt/gcc-riscv-none-embed/bin/riscv-none-embed-gdb",
       "miDebuggerServerAddress": "localhost:3333",
+      "useExtendedRemote": true,
 
       /* Debugger and target setup */
       "stopAtEntry": false,
@@ -30,7 +30,9 @@
       ],
       "postRemoteConnectCommands": [
         { "text": "monitor reset halt" },
+        { "text": "monitor [target current] configure -event gdb-detach { shutdown }" },
         { "text": "load" },
+        { "text": "monitor reset halt" },
         { "text": "b main" },
         { "text": "b HardFault_Handler" },
       ],
