@@ -19,11 +19,18 @@
  * Activate clocks and initialise GPIO pins
  *
  * @date  21.03.2023
+ * @date  09.01.2023  Added UART TX/RX swap for SOIC8-part
  ******************************************************************************/
 void vInitHW_GPIO(void)
 {
   /* Enable peripheral clock supplies for used GPIO       */
   RCC_APB2PeriphClockCmd(GPIO_USED_PERIPH, ENABLE);
+
+  #ifdef USART1RTX_GPIO_Remap
+  /* Remapping for SOIC8-part                             */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+  GPIO_PinRemapConfig(USART1RTX_GPIO_Remap, ENABLE);
+  #endif
 
   /* USART1 Rx/Tx                                         */
   GPIO_InitTypeDef sInitUSART1TX = {

@@ -80,6 +80,29 @@ A firmware update of the WCH-LinkE debug probe to version `v31` or newer may be 
 
 If a firmware update is available, a pop-up window will appear, asking you to confirm the update.
 
+## SOIC8 Pin Mapping and "un-bricking"
+On the SOIC8 package `CH32V003J4M6`, the debug interface is multiplexed with USART1 data lines. In the default configuration, enabling the UART transmitter will block debugger access. To use both USART1 and the debug port, **un-comment the `USE_SOIC8_UART_REMAP`** macro definition in `hw_layer/hw_iodefs.h`. Use the following table for connecting the debug probe to the SOIC8 part:
+
+|WCH-LinkE Pin|SOIC8 Pin|
+|-|-|
+|`3V3`|4 `VDD`|
+|`GND`|2 `VSS`|
+|`SWDIO`|8 `PD1/PD5/PD4` (*)|
+|`TX`|8 `PD1/PD5/PD4` (*)|
+|`RX`|1 `PD6`|
+
+*) **Note:** *WCH-LinkE `TX` and `SWDIO` lines are connected to the same pin at the SOIC8 part!*
+
+In order to use the USART pin, close the debug connection (OpenOCD) in software. This releases the SWDIO line to a high-impedance state.
+
+### Un-bricking an SOIC8 part
+If an SOIC8 part has been programmed without swapping the RX/TX lines, debugger access is no longer possible. A full chip reset is required.
+
+Use the [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) to perform a full chip reset:
+* MCU Core: `RISC-V`
+* Series: `CH32V00x`
+* Target -> "Clear All Code-Flash-By Power Off"
+
 ## Licensing
 
 If not stated otherwise in the specific file, the contents of this project are licensed under the MIT License. The full license text is provided in the [`LICENSE`](LICENSE) file.

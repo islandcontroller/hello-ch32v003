@@ -231,6 +231,7 @@ static void vPrintInfoBlockWords(void)
  * @date  10.03.2022  Added information block readout command
  * @date  21.03.2023  Removed analog, EEPROM for ch32v003
  * @date  23.03.2023  Added system timer value readout
+ * @date  09.01.2024  Void non-printable characters
  ******************************************************************************/
 static void vPollSerial(void)
 {
@@ -239,7 +240,8 @@ static void vPollSerial(void)
 
   /* Fetch character and print remote echo                */
   char c = getchar();
-  printf("%c\r\n", c);
+  if (!isprint(c)) return;
+  else printf("%c\r\n", c);
 
   /* Process command                                      */
   switch (c)
