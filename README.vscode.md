@@ -8,6 +8,7 @@ This project contains a simple set of modules to get the MCU running in a minima
   - Serial I/O on USART1 (connected to WCH-LinkE USART)
   - TIM1 Channel 3 configured for PWM output to LED
   - SysTick enabled and using auto-reload feature
+  - I2C1 interface with 24C64 EEPROM read and write access
 
 ## Requirements
 
@@ -16,6 +17,7 @@ This project contains a simple set of modules to get the MCU running in a minima
     * Starter Kit includes WCH-LinkE Debugger
   * 6 pcs. female-female jumper wires
   * (optional) additional 1 pc. female-female jumper wire for LED demo
+  * (optional) AT24C64 EEPROM IC + Solderless breadboard + 2x 10k Resistors
 * Software
   * Linux OS or WSL installation
   * [Docker Engine](https://docs.docker.com/engine/install/debian/) (running within WSL if applicable)
@@ -37,6 +39,29 @@ This project contains a simple set of modules to get the MCU running in a minima
 | `RX`          | `PD5`         |
 
 *) For powering the target from your WCH-LinkE debugger. Omit this if you want to power the EVT board via its own USB port.
+
+## EEPROM Hardware Setup (optional)
+
+* Connect the `LED1` and `PA6` pins on header `J3` using a female-female jumper wire
+* Connect the 24C64 EEPROM to `PB10` and `PB11` and add 10k pull-up resistors to SDA and SCL:
+  ```
+       .___________.  VCC   VCC VCC       VCC  .________________
+      1|    |_|    |8  |     |   |         |   |
+   +---| A0    VCC |---+    .|. .|.        +---| VCC (3V3)
+   |  2|           |7       | | | | R1,R2      |
+   o---| A1     WP |---+    |_| |_| 10k    +---| GND
+   |  3|           |6  |     |   |         |   |
+   o---| A2    SCL |---(-----o---(---------(---| PC2 (I2C1_SCL)
+   |  4|           |5  |         |         |   |
+   o---| GND   SDA |---(---------o---------(---| PC1 (I2C1_SDA)
+   |   |___________|   |                   |   |________________
+  GND  U2             GND                 GND  U1
+       AT24C64 (DIP8)                          CH32V003
+  ```
+
+### **Note**
+
+If you want to use the EEPROM demo, remove the comment at the start of the `#define USE_EEPROM_DEMO` line at the top of `main.c`. The demo is disabled by default.
 
 ## Usage
 

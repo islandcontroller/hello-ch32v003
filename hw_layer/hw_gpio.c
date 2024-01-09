@@ -19,7 +19,8 @@
  * Activate clocks and initialise GPIO pins
  *
  * @date  21.03.2023
- * @date  09.01.2023  Added UART TX/RX swap for SOIC8-part
+ * @date  09.01.2024  Added UART TX/RX swap for SOIC8-part
+ * @date  09.01.2024  Added I2C1 SDA/SCL mappings
  ******************************************************************************/
 void vInitHW_GPIO(void)
 {
@@ -52,4 +53,12 @@ void vInitHW_GPIO(void)
     .GPIO_Speed = GPIO_Speed_2MHz
   };
   GPIO_Init(TIM1CH3_GPIO_Port, &sInitTIM1CH3);
+  
+  /* I2C2 SCL/SDA                                          */
+  GPIO_InitTypeDef sInitI2C1 = {
+    .GPIO_Pin = I2C1SCL_GPIO_Pin | I2C1SDA_GPIO_Pin,
+    .GPIO_Mode = I2C1_GPIO_Mode,
+    .GPIO_Speed = GPIO_Speed_2MHz
+  };
+  GPIO_Init(I2C1_GPIO_Port, &sInitI2C1);
 }

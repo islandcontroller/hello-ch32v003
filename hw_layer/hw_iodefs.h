@@ -47,4 +47,12 @@
 #define USART1RX_GPIO_Mode            GPIO_Mode_IPU
 /*! @}                                                                        */
 
+/*! @brief PC2/1: I2C1 SCL/SDA to 24C64 EEPROM
+ *  @{                                                                        */
+#define I2C1_GPIO_Port                GPIOC
+#define I2C1SCL_GPIO_Pin              GPIO_Pin_2
+#define I2C1SDA_GPIO_Pin              GPIO_Pin_1
+#define I2C1_GPIO_Mode                GPIO_Mode_AF_OD
+/*! @}                                                                        */
+
 #endif /* HW_IODEFS_H_ */

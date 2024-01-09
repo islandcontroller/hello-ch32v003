@@ -25,6 +25,7 @@
  * @date  23.03.2023  Added SysTick interrupt demo
  * @date  02.10.2023  Moved system time to hw_stk
  * @date  02.10.2023  Added LED demo
+ * @date  09.01.2024  Added EEPROM demo
  ******************************************************************************/
 
 /*- Header files -------------------------------------------------------------*/
@@ -37,9 +38,16 @@
 #include "syscalls.h"
 #include "dbgser.h"
 #include "led.h"
+#include "eeprom.h"
 
 
 /*- Macros -------------------------------------------------------------------*/
+/*! @brief Enable 24C64 EEPROM demo                                           */
+//#define USE_EEPROM_DEMO
+
+/*! @brief Number of bytes to be read for EEPROM hexdump                      */
+#define EEPROM_NUM_BYTES              256
+
 /*! @brief Hexdump items per row                                              */
 #define HEXDUMP_ROW_ITEMS             16UL
 
@@ -82,6 +90,11 @@ const char* const apszMisaExt[26] = {
   "Y - (reserved)",
   "Z - (reserved)"
 };
+
+#ifdef USE_EEPROM_DEMO
+/*! EEPROM demo data to be programmed                                         */
+const char* const pszEepromData = "CH32V003 I2C Demo";
+#endif /* USE_EEPROM_DEMO */
 
 
 /*- Private functions --------------------------------------------------------*/
@@ -200,6 +213,30 @@ static void vPrintHexDump(const uint8_t* pBuffer, unsigned uLen, unsigned uBaseA
   }
 }
 
+#ifdef USE_EEPROM_DEMO
+/*!****************************************************************************
+ * @brief
+ * Print EEPROM hexdump
+ *
+ * @date  04.03.2022
+ * @date  10.03.2022  Moved hexdump printout into separate routine
+ ******************************************************************************/
+static void vPrintEepromData(void)
+{
+  unsigned char aucBuffer[EEPROM_NUM_BYTES];
+
+  /* Time readout into buffer                             */
+  printf("Reading EEPROM... ");
+  unsigned uStart = ulHW_STKGetSystemTime();
+  vReadEeprom(aucBuffer, 0, EEPROM_NUM_BYTES);
+  unsigned uDuration = (ulHW_STKGetSystemTime() - uStart);
+  printf("done. Read %d bytes in %d ms.\r\n", EEPROM_NUM_BYTES, uDuration);
+
+  /* Hexdump printout                                     */
+  vPrintHexDump(aucBuffer, EEPROM_NUM_BYTES, 0);
+}
+#endif /* USE_EEPROM_DEMO */
+
 /*!****************************************************************************
  * @brief
  * Print User Sel. and Vendor Config. Words
@@ -232,6 +269,7 @@ static void vPrintInfoBlockWords(void)
  * @date  21.03.2023  Removed analog, EEPROM for ch32v003
  * @date  23.03.2023  Added system timer value readout
  * @date  09.01.2024  Void non-printable characters
+ * @date  09.01.2024  Added EEPROM
  ******************************************************************************/
 static void vPollSerial(void)
 {
@@ -251,11 +289,21 @@ static void vPollSerial(void)
       printf(
         "Available Commands:\r\n"
         "  ?    Show this help\r\n"
+#ifdef USE_EEPROM_DEMO
+        "  e    Read EEPROM\r\n"
+#endif /* USE_EEPROM_DEMO */
         "  i    Read information block\r\n"
         "  r    Reboot system\r\n"
         "  t    Print system time\r\n"
       );
       break;
+
+#ifdef USE_EEPROM_DEMO
+    case 'e':
+      /* Print EEPROM hexdump                             */
+      vPrintEepromData();
+      break;
+#endif /* USE_EEPROM_DEMO */
 
     case 'i':
       /* Read information block                           */
@@ -296,6 +344,7 @@ static void vPollSerial(void)
  * @date  04.03.2022  Added EEPROM programming
  * @date  21.03.2023  Adapted for hello-ch32v003; Removed LED, Analog, EEPROM
  * @date  02.10.2023  Added LED demo
+ * @date  09.01.2024  Added EEPROM
  ******************************************************************************/
 int main(void)
 {
@@ -328,6 +377,11 @@ int main(void)
   vPrintSysCoreClk();
   printf("\r\n");
   vPrintEsigInfo();
+#ifdef USE_EEPROM_DEMO
+  printf("\r\nWriting EEPROM... ");
+  vWriteEeprom((const unsigned char*)pszEepromData, 0, strlen(pszEepromData));
+  printf("done.");
+#endif /* USE_EEPROM_DEMO */
   printf("\r\nPress \"?\" to show available commands.\r\n>");
   fflush(stdout);
 
