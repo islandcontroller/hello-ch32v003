@@ -1,9 +1,8 @@
 {
   "name": "WCH-IC RISC-V GNU Toolchain",
   
-	// Pull and use pre-built image from Docker Hub
-  // see https://github.com/islandcontroller/wch-riscv-devcontainer for details
-	"image": "islandc/wch-riscv-devcontainer:1.1",
+  // Pull and use pre-built image from Docker Hub
+  "image": "islandc/wch-riscv-devcontainer:2.0",
   
   // Privileged container in order to access /dev
   "privileged": true,
@@ -18,12 +17,13 @@
     "vscode": {
       "settings": {
         "[cmake]": {
-					"editor.tabSize": 8,
-					"editor.insertSpaces": false
-				},
-				"[makefile]": {
-					"editor.tabSize": 8
-				},
+          "editor.tabSize": 8,
+          "editor.insertSpaces": false
+        },
+        "[makefile]": {
+          "editor.tabSize": 8,
+          "editor.insertSpaces": false
+        },
 
         "files.associations": {
           "*.c": "c",
@@ -34,22 +34,24 @@
           "*.asm": "riscv",
           "*.ld": "linkerscript"
         },
-				
-				"editor.insertSpaces": true,
-				"editor.rulers": [80],
-				"editor.tabSize": 2,
+        
+        "editor.insertSpaces": true,
+        "editor.rulers": [80],
+        "editor.tabSize": 2,
 
-				"C_Cpp.default.compilerPath": "/opt/gcc-riscv-none-embed/bin/riscv-none-embed-gcc",
-				"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-				"C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
+        "C_Cpp.default.compilerPath": "/opt/gcc-riscv-none-elf/bin/riscv-none-elf-gcc",
+        "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+        "C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
         
         "cmake.configureOnOpen": true,
         "cmake.languageSupport.dotnetPath": "/opt/dotnet/dotnet",
-        "cmake.languageSupport.enableFileAPI": true
+        "cmake.languageSupport.enableFileAPI": true,
+        "cmake.showSystemKits": false,
+        "cmake.options.statusBarVisibility": "visible"
       },
       "extensions": [
         "josetr.cmake-language-support-vscode",
-				"keroc.hex-fmt",
+        "keroc.hex-fmt",
         "ms-vscode.cpptools-extension-pack",
         "ms-vscode.cmake-tools",
         "ms-vscode.vscode-embedded-tools",

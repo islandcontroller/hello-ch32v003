@@ -48,10 +48,14 @@ This project contains a simple set of modules to get the MCU running in a minima
 * Connect WCH-Link debug probe
   * (WSL only) attach to WSL using `usbipd wsl attach --busid <...> -a`.
 * Run the command "**Dev Containers: Reopen in Container**"
-  * On first launch, you may need to copy the udev rules from `/tmp/MRS/beforeinstall` into your **host's** `/etc/udev/rules.d/` directory
-  * Then, reload the rules using `sudo udevadm control --reload-rules` and `sudo udevadm trigger`.
+  * On first launch, you may need to install some udev rules on your host machine. Copy the files to your workspace by running `setup-devcontainer` inside the container.
+  * Re-open the workspace on your host and run the `install-rules` script inside the `.vscode/setup` folder.
+
+        cd .vscode/setup
+        sudo ./install-rules
+
   * Afterwards, restart the devcontainer.
-* Upon prompt, select the "**GCC x.x riscv-none-embed**" CMake Kit. 
+* Upon prompt, select the "**\[unspecified\]**" CMake Kit. 
 * Run "**CMake: Configure**"
 * Build using "**CMake: Build [F7]**"
 
@@ -64,6 +68,17 @@ This project contains a simple set of modules to get the MCU running in a minima
 * Start debugging using "**Debug: Start Debugging [F5]**"
 * Continue execution once the breakpoint in `main()` is reached.
 * Type `?` in the serial monitor Terminal tab to show available commands.
+
+## WCH-LinkE Firmware Update
+A firmware update of the WCH-LinkE debug probe to version `v31` or newer may be necessary. Use the [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) to perform an online update of the programmer, as described in section 6.2 "*WCH-LinkUtility Online Update*" of the [WCH-Link User Manual](https://www.wch.cn/downloads/WCH-LinkUserManual_PDF.html).
+
+* Pry open the clear case of the WCH-LinkE using a small flat-head screwdriver
+* Push and hold the "IAP" button and insert the debugger into a USB port
+* Start the `WCH-LinkUtility.exe`
+* Confirm installation of the required drivers
+* Click the "Query Read-Write-Protect Status" button (Alt + F5)
+
+If a firmware update is available, a pop-up window will appear, asking you to confirm the update.
 
 ## Licensing
 

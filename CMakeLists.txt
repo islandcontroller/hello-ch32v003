@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 
-# Project configuration: executable name, linker script# Toolchain configuration
-set(CMAKE_TOOLCHAIN_FILE $ENV{CMAKE_CONFIGS_PATH}/gcc-riscv-none-embed.cmake)
-
 #- Project setup ---------------------------------------------------------------
 project(hello-ch32v003)
 

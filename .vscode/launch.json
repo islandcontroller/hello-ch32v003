@@ -16,7 +16,7 @@
 
       /* Debugger connection */
       "MIMode": "gdb",
-      "miDebuggerPath": "/opt/gcc-riscv-none-embed/bin/riscv-none-embed-gdb",
+      "miDebuggerPath": "/opt/gcc-riscv-none-elf/bin/riscv-none-elf-gdb",
       "miDebuggerServerAddress": "localhost:3333",
       "useExtendedRemote": true,
 
@@ -39,7 +39,7 @@
       "launchCompleteCommand": "exec-continue",
 
       /* Peripheral viewer */
-      "svdPath": "/opt/wch/CH32V003xx.svd"
+      "svdPath": "/opt/wch/svd/CH32V103xx.svd"
     }
   ]
 }

@@ -5,6 +5,7 @@
 
 # VSCode
 .vscode/settings.json
+.vscode/setup/
 
 # CMake
 build/
