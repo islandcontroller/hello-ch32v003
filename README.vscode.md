@@ -22,7 +22,7 @@ This project contains a simple set of modules to get the MCU running in a minima
   * Linux OS or WSL installation
   * [Docker Engine](https://docs.docker.com/engine/install/debian/) (running within WSL if applicable)
   * VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
-  * (WSL only) [usbipd-win](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) (Windows *and* WSL parts installed!)
+  * (WSL only) [usbipd-win](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 
 ### Hardware Setup
 
@@ -71,7 +71,7 @@ If you want to use the EEPROM demo, remove the comment at the start of the `#def
   ```
 * Open the folder in VSCode
 * Connect WCH-Link debug probe
-  * (WSL only) attach to WSL using `usbipd wsl attach --busid <...> -a`.
+  * (WSL only) attach to WSL using `usbipd attach --wsl --busid <...>`. **This needs to be completed before starting the Dev Container.**
 * Run the command "**Dev Containers: Reopen in Container**"
   * On first launch, you may need to install some udev rules on your host machine. Copy the files to your workspace by running `setup-devcontainer` inside the container.
   * Re-open the workspace on your host and run the `install-rules` script inside the `.vscode/setup` folder.
