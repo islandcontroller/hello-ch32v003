@@ -121,12 +121,9 @@ On the SOIC8 package `CH32V003J4M6`, the debug interface is multiplexed with USA
 In order to use the USART pin, close the debug connection (OpenOCD) in software. This releases the SWDIO line to a high-impedance state.
 
 ### Un-bricking an SOIC8 part
-If an SOIC8 part has been programmed without swapping the RX/TX lines, debugger access is no longer possible. A full chip reset is required.
+If an SOIC8 part has been programmed without swapping the RX/TX lines, debugger access is no longer possible. A full chip reset is required. Use the included `wlink` utility to perform the reset:
 
-Use the [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) to perform a full chip reset:
-* MCU Core: `RISC-V`
-* Series: `CH32V00x`
-* Target -> "Clear All Code-Flash-By Power Off"
+    wlink erase --method power-off --chip ch32v003
 
 ## Licensing
 
