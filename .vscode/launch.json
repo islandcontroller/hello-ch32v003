@@ -27,6 +27,7 @@
         { "text": "set mem inaccessible-by-default off" },
         { "text": "set architecture riscv:rv32" },
         { "text": "set remotetimeout unlimited" },
+        { "text": "set disassembler-options xw" }
       ],
       "postRemoteConnectCommands": [
         { "text": "monitor reset halt" },
