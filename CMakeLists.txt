@@ -46,6 +46,7 @@ add_compile_options(
 )
 add_compile_definitions(
 	-DCH32V003
+	-DUSE_WCH_INTERRUPT_FAST_ATTR
 )
 include_directories(
 	Controller
@@ -94,6 +95,7 @@ target_link_options(${TARGET_NAME} PRIVATE
 
 # Post-Build: register generated mapfile
 add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+	COMMAND true
 	BYPRODUCTS ${TARGET_NAME}${TARGET_MAPFILE_SUFFIX}
 )
 
