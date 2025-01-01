@@ -2,7 +2,7 @@
   "name": "WCH-IC RISC-V GNU Toolchain",
   
   // Pull and use pre-built image from Docker Hub
-  "image": "islandc/wch-riscv-devcontainer:2.1",
+  "image": "islandc/wch-riscv-devcontainer:latest",
   
   // Privileged container in order to access /dev
   "privileged": true,
