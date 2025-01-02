@@ -10,8 +10,6 @@ This project contains a simple set of modules to get the MCU running in a minima
   - SysTick enabled and using auto-reload feature
   - I2C1 interface with 24C64 EEPROM read and write access
 
-**:information_source: See [`README.vscode.md`](README.vscode.md) for VSCode setup information! :information_source:**
-
 ## Requirements
 
 * Hardware
@@ -21,17 +19,10 @@ This project contains a simple set of modules to get the MCU running in a minima
   * (optional) additional 1 pc. female-female jumper wire for LED demo
   * (optional) AT24C64 EEPROM IC + Solderless breadboard + 2x 10k Resistors
 * Software
-  * [MounRiver Studio Community](http://www.mounriver.com/) (as of March 2023, a [manual OpenOCD update](#manual-openocd-update) is needed)
-  * Serial terminal program, e.g. [PuTTy](https://www.putty.org/) or minicom
-
-### Manual OpenOCD Update for MounRiver V1.30 or earlier
-
-MounRiver Studio Community **V1.30** does not include the updated OpenOCD build required for WCH-LinkE support. In order to update the debugger, perform the following steps:
-
-* Download the [MounRiver Studio V1.84 Update](http://file.mounriver.com/upgrade/MounRiver_Update_V184.zip) package
-* Extract the package into a temporary folder
-* Copy the contained `toolchain` folder to your **local** MounRiver Studio Community installation
-* Confirm overwrite of all files in the `toolchain` folder
+  * Linux OS or WSL installation
+  * [Docker Engine](https://docs.docker.com/engine/install/debian/) (running within WSL if applicable)
+  * VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
+  * (WSL only) [usbipd-win](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 
 ### Hardware Setup
 
@@ -78,11 +69,41 @@ If you want to use the EEPROM demo, remove the comment at the start of the `#def
   ```
   git clone --recursive https://github.com/islandcontroller/hello-ch32v003
   ```
-* Load this project in **MounRiver Studio Community** and build the executable
-* Open a serial terminal on the WCH-LinkE programmer's VCP (**115200 Baud, 8N1**)
-* Flash the firmware to the MCU using the provided `.launch` script
-* Resume execution once breakpoint in `main()` is reached
-* Press `?` in the serial terminal to show available commands
+* Open the folder in VSCode
+* Connect WCH-Link debug probe
+  * (WSL only) attach to WSL using `usbipd attach --wsl --busid <...>`. **This needs to be completed before starting the Dev Container.**
+* Run the command "**Dev Containers: Reopen in Container**"
+  * On first launch, you may need to install some udev rules on your host machine. Copy the files to your workspace by running `setup-devcontainer` inside the container.
+  * Re-open the workspace on your host and run the `install-rules` script inside the `.vscode/setup` folder.
+
+        cd .vscode/setup
+        sudo ./install-rules
+
+  * Afterwards, restart the devcontainer.
+* Upon prompt, select the "**\[unspecified\]**" CMake Kit. 
+* Run "**CMake: Configure**"
+* Build using "**CMake: Build [F7]**"
+
+* Split the terminal tab using the `[|]`-Button or press `Ctrl + Shift + 5`. Then launch the serial monitor:
+
+      cu -l /dev/ttyACM0 -s 115200
+
+  **To close the connection later on, press ESC/ENTER, type `~.` (tilde, dot) and wait for 3 seconds.**
+
+* Start debugging using "**Debug: Start Debugging [F5]**"
+* Continue execution once the breakpoint in `main()` is reached.
+* Type `?` in the serial monitor Terminal tab to show available commands.
+
+## WCH-LinkE Firmware Update
+A firmware update of the WCH-LinkE debug probe to version `v31` or newer may be necessary. Use the [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) to perform an online update of the programmer, as described in section 6.2 "*WCH-LinkUtility Online Update*" of the [WCH-Link User Manual](https://www.wch.cn/downloads/WCH-LinkUserManual_PDF.html).
+
+* Pry open the clear case of the WCH-LinkE using a small flat-head screwdriver
+* Push and hold the "IAP" button and insert the debugger into a USB port
+* Start the `WCH-LinkUtility.exe`
+* Confirm installation of the required drivers
+* Click the "Query Read-Write-Protect Status" button (Alt + F5)
+
+If a firmware update is available, a pop-up window will appear, asking you to confirm the update.
 
 ## SOIC8 Pin Mapping and "un-bricking"
 On the SOIC8 package `CH32V003J4M6`, the debug interface is multiplexed with USART1 data lines. In the default configuration, enabling the UART transmitter will block debugger access. To use both USART1 and the debug port, **un-comment the `USE_SOIC8_UART_REMAP`** macro definition in `hw_layer/hw_iodefs.h`. Use the following table for connecting the debug probe to the SOIC8 part:
@@ -92,7 +113,7 @@ On the SOIC8 package `CH32V003J4M6`, the debug interface is multiplexed with USA
 |`3V3`|4 `VDD`|
 |`GND`|2 `VSS`|
 |`SWDIO`|8 `PD1/PD5/PD4` (*)|
-|`TX`|8 `PD1/PD5/PD4`(*)|
+|`TX`|8 `PD1/PD5/PD4` (*)|
 |`RX`|1 `PD6`|
 
 *) **Note:** *WCH-LinkE `TX` and `SWDIO` lines are connected to the same pin at the SOIC8 part!*
@@ -100,9 +121,13 @@ On the SOIC8 package `CH32V003J4M6`, the debug interface is multiplexed with USA
 In order to use the USART pin, close the debug connection (OpenOCD) in software. This releases the SWDIO line to a high-impedance state.
 
 ### Un-bricking an SOIC8 part
-If an SOIC8 part has been programmed without swapping the RX/TX lines, debugger access is no longer possible. A full chip reset is required.
+If an SOIC8 part has been programmed without swapping the RX/TX lines, debugger access is no longer possible. A full chip reset is required. Use the included `wlink` utility to perform the reset:
 
-Use the [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) to perform a full chip reset:
+    wlink erase --method power-off --chip ch32v003
+
+#### WCH-LinkUtility
+On a Windows system, you can use the [WCH-LinkUtility](https://www.wch.cn/downloads/WCH-LinkUtility_ZIP.html) to perform a full chip reset:
+
 * MCU Core: `RISC-V`
 * Series: `CH32V00x`
 * Target -> "Clear All Code-Flash-By Power Off"

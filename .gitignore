@@ -1,8 +1,3 @@
-# Eclipse / MounRiver Studio
-/.settings/
-/Debug/
-.template
-
 # VSCode
 .vscode/settings.json
 .vscode/setup/
