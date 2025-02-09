@@ -43,7 +43,7 @@ void vInitHW_STK(void)
 
   /* Enable SysTick interrupts                            */
   SysTick_ITConfig(ENABLE);
-  PFIC_EnableIRQ(SysTicK_IRQn);
+  PFIC_EnableIRQ(SysTick_IRQn);
 
   SysTick_Cmd(ENABLE);
 }
