@@ -1,4 +1,4 @@
-# hello-ch32v003 [![GitHub license](https://img.shields.io/github/license/islandcontroller/hello-ch32v003?style=flat-square)](LICENSE) [![Discord server link](https://img.shields.io/badge/discord-WCH%20Community-white?style=flat-square&logo=discord)](https://t.co/Qbblvmfbae)
+# hello-ch32v003 [![GitHub license](https://img.shields.io/github/license/islandcontroller/hello-ch32v003?style=flat-square)](LICENSE) [![Discord server link](https://img.shields.io/badge/discord-WCH%20Community-white?style=flat-square&logo=discord)](https://t.co/Qbblvmfbae) [![Discord server link](https://img.shields.io/badge/GitHub-template--ch32v003-white?style=flat-square&logo=github)](https://github.com/islandcontroller/template-ch32v003)
 
 A simple "Hello World"-like project for the ultra low-cost WCH CH32V003 RISC-V MCU.
 
@@ -9,6 +9,8 @@ This project contains a simple set of modules to get the MCU running in a minima
   - TIM1 Channel 3 configured for PWM output to LED
   - SysTick enabled and using auto-reload feature
   - I2C1 interface with 24C64 EEPROM read and write access
+
+**Project template available here: [`template-ch32v003`](https://github.com/islandcontroller/template-ch32v003)**
 
 ## Requirements
 
