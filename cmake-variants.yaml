@@ -6,13 +6,3 @@ buildType:
       short: Debug
       long: Build with debug symbols enabled
       buildType: Debug
-
-compilerType:
-  default: gcc12
-  description: Compiler Selection
-  choices:
-    gcc12:
-      short: gcc12
-      long: riscv-none-elf-gcc Version 12
-      settings:
-        CMAKE_TOOLCHAIN_FILE: gcc-riscv-none-elf.cmake

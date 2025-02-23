@@ -82,7 +82,7 @@ If you want to use the EEPROM demo, remove the comment at the start of the `#def
         sudo ./install-rules
 
   * Afterwards, restart the devcontainer.
-* Upon prompt, select the "**\[unspecified\]**" CMake Kit. 
+* Upon prompt, select the "`WCH RISC-V Toolchain x.x`" CMake Kit. 
 * Run "**CMake: Configure**"
 * Build using "**CMake: Build [F7]**"
 
